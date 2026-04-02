@@ -1,0 +1,28 @@
+<html>
+<head><title>Student Portal</title></head>
+<body>
+<h2>Browse Events</h2>
+<select id="eventSelect">
+<option value="Tech Workshop">Tech Workshop</option>
+<option value="Music Fest">Music Fest</option>
+<option value="Art Expo">Art Expo</option>
+</select>
+<button onclick="register()">Register & Pay</button><br><br>
+<a href="index.html">Logout</a>
+<script>
+        function register() {
+            let event = document.getElementById('eventSelect').value;
+            let date = new Date().toLocaleDateString();
+            
+            // Get existing data or start new
+            let registrations = JSON.parse(localStorage.getItem('regs') || '[]');
+            
+            // Add new registration
+            registrations.push({ event: event, date: date, paid: "Yes" });
+            localStorage.setItem('regs', JSON.stringify(registrations));
+            
+            alert("Payment Confirmed! Registered for " + event);
+        }
+</script>
+</body>
+</html>

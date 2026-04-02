@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>Admin Portal</title></head>
+<body>
+<h2>Event Monitoring</h2>
+<button onclick="generateReport()">Generate Daily Report</button>
+<div id="reportArea"></div><br>
+<button onclick="localStorage.clear(); location.reload();">Clear All Data</button><br><br>
+    <a href="index.html">Logout</a>
+
+    <script>
+        function generateReport() {
+            let regs = JSON.parse(localStorage.getItem('regs') || '[]');
+            let today = new Date().toLocaleDateString();
+            
+            // Filter for today's data
+            let todayRegs = regs.filter(r => r.date === today);
+            
+            // Calculate Unique Events
+            let uniqueEvents = [...new Set(todayRegs.map(r => r.event))];
+
+            document.getElementById('reportArea').innerHTML = `
+                <h3>Report for ${today}</h3>
+                <p>Total Students Registered: ${todayRegs.length}</p>
+                <p>Total Unique Events Booked: ${uniqueEvents.length}</p>
+                <hr>
+            `;
+        }
+    </script>
+</body>
+</html>
